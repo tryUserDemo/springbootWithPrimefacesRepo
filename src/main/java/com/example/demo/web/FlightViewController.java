@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.web;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,23 +8,23 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.model.Flight;
-import com.example.demo.repository.FlightRepository;
+import com.example.demo.domain.entity.Flight;
+import com.example.demo.domain.repository.FlightRepository;
 
 import lombok.Getter;
 import lombok.Setter;
+
 
 @Component
 @ManagedBean
 @ViewScoped
 @Getter @Setter
-public class FlightController implements Serializable {
+public class FlightViewController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

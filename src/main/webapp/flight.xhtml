@@ -20,42 +20,42 @@
             
             <f:facet name="header">
                 New Flight
-                <p:commandButton action="#{flightController.refresh()}" icon="pi pi-refresh" 
+                <p:commandButton action="#{flightViewController.refresh()}" icon="pi pi-refresh" 
                                  update="@form" process="@this"/>
             </f:facet>
             
             <h:panelGrid columns="3">
                 
                 <p:outputLabel value="Airline" for="airlineTextId"/>
-                <p:inputText id="airlineTextId" value="#{flightController.flight.airline}" 
+                <p:inputText id="airlineTextId" value="#{flightViewController.flight.airline}" 
                 	required="true" reqiredMessage="Airline is required field." />
                 <p:message for="airlineTextId"/>
                 
                 <p:outputLabel value="FromAirport" for="fromAirportTextId"/>
-                <p:inputText id="fromAirportTextId" value="#{flightController.flight.fromAirport}" 
+                <p:inputText id="fromAirportTextId" value="#{flightViewController.flight.fromAirport}" 
                 	required="true" reqiredMessage="FromAirport is required field." />
                 <p:message for="fromAirportTextId"/>
                 
                 <p:outputLabel value="ToAirport" for="toAirportTextId"/>
-                <p:inputText id="toAirportTextId" value="#{flightController.flight.toAirport}" 
+                <p:inputText id="toAirportTextId" value="#{flightViewController.flight.toAirport}" 
                 	required="true" reqiredMessage="ToAirport is required field." />
                 <p:message for="toAirportTextId"/>
                 
                 <p:outputLabel value="ScheduledDateTime" for="scheduledDateTimeClndId"/>
-                <p:datePicker id="scheduledDateTimeClndId" value="#{flightController.flight.scheduledDateTime}" showTime="true" 
+                <p:datePicker id="scheduledDateTimeClndId" value="#{flightViewController.flight.scheduledDateTime}" showTime="true" 
                 	required="true" reqiredMessage="ScheduledDateTime is required field."/>
                 <p:message for="scheduledDateTimeClndId"/>
                 
                 <p:outputLabel value="EstimatedDateTime" for="estimatedDateTimeClndId"/>
-                <p:datePicker id="estimatedDateTimeClndId" value="#{flightController.flight.estimatedDateTime}" showTime="true"/>
+                <p:datePicker id="estimatedDateTimeClndId" value="#{flightViewController.flight.estimatedDateTime}" showTime="true"/>
                 <p:message for="estimatedDateTimeClndId"/>
                 
                 <p:outputLabel value="ActualDateTime" for="actualDateTimeClndId"/>
-                <p:datePicker id="actualDateTimeClndId" value="#{flightController.flight.actualDateTime}" showTime="true"/>
+                <p:datePicker id="actualDateTimeClndId" value="#{flightViewController.flight.actualDateTime}" showTime="true"/>
 				<p:message for="actualDateTimeClndId"/>
 
                 <p:outputLabel for="saveBtnId"/>
-                <p:commandButton id="saveBtnId" value="Save" action="#{flightController.save()}" 
+                <p:commandButton id="saveBtnId" value="Save" action="#{flightViewController.save()}" 
                 				 update="@form" process="@parent"/>
 				<p:message for="saveBtnId"/>
 					
@@ -83,11 +83,11 @@
             
             <f:facet name="header">
                 Flights
-                <p:commandButton action="#{flightController.getAllFlightList()}" icon="pi pi-refresh" 
+                <p:commandButton action="#{flightViewController.getAllFlightList()}" icon="pi pi-refresh" 
                                  update="@form" process="@this"/>
             </f:facet>
             
-            <p:dataTable var="flightItem" value="#{flightController.flightList}" 
+            <p:dataTable var="flightItem" value="#{flightViewController.flightList}" 
             	paginator="true" paginatorPosition="bottom" rows="5" 
             	paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                 currentPageReportTemplate="{startRecord}-{endRecord} arası görüntüleniyor. Toplam {totalRecords} kayıt var."
@@ -128,7 +128,7 @@
                 </p:column>
 
                 <p:column headerText="Options" width="10%">
-                    <p:commandButton icon="pi pi-pencil" action="#{flightController.edit(flightItem)}"
+                    <p:commandButton icon="pi pi-pencil" action="#{flightViewController.edit(flightItem)}"
                                      update="@form" process="@this"/>
                 </p:column>
 

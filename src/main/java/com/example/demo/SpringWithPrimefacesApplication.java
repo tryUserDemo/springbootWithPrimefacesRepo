@@ -2,6 +2,7 @@ package com.example.demo;
 
 import javax.faces.webapp.FacesServlet;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
@@ -52,6 +53,11 @@ public class SpringWithPrimefacesApplication {
 	@Bean
 	public ServletListenerRegistrationBean<ConfigureListener> jsfConfigureListener() {
 		return new ServletListenerRegistrationBean<ConfigureListener>(new ConfigureListener());
+	}
+	
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
 	}
 
 }
