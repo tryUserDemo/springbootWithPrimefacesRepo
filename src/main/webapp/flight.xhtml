@@ -15,71 +15,84 @@
 		<p:messages id="messages" showDetail="true" closable="true">
             <p:autoUpdate/>
         </p:messages>
-
-        <p:panel id="pnlNewFligt">
-            
-            <f:facet name="header">
-                New Flight
-                <p:commandButton action="#{flightViewController.refresh()}" icon="pi pi-refresh" 
-                                 update="@form" process="@this"/>
-            </f:facet>
-            
-            <h:panelGrid columns="3">
-                
-                <p:outputLabel value="Airline" for="airlineTextId"/>
-                <p:inputText id="airlineTextId" value="#{flightViewController.flight.airline}" 
-                	required="true" reqiredMessage="Airline is required field." />
-                <p:message for="airlineTextId"/>
-                
-                <p:outputLabel value="FromAirport" for="fromAirportTextId"/>
-                <p:inputText id="fromAirportTextId" value="#{flightViewController.flight.fromAirport}" 
-                	required="true" reqiredMessage="FromAirport is required field." />
-                <p:message for="fromAirportTextId"/>
-                
-                <p:outputLabel value="ToAirport" for="toAirportTextId"/>
-                <p:inputText id="toAirportTextId" value="#{flightViewController.flight.toAirport}" 
-                	required="true" reqiredMessage="ToAirport is required field." />
-                <p:message for="toAirportTextId"/>
-                
-                <p:outputLabel value="ScheduledDateTime" for="scheduledDateTimeClndId"/>
-                <p:datePicker id="scheduledDateTimeClndId" value="#{flightViewController.flight.scheduledDateTime}" showTime="true" 
-                	required="true" reqiredMessage="ScheduledDateTime is required field."/>
-                <p:message for="scheduledDateTimeClndId"/>
-                
-                <p:outputLabel value="EstimatedDateTime" for="estimatedDateTimeClndId"/>
-                <p:datePicker id="estimatedDateTimeClndId" value="#{flightViewController.flight.estimatedDateTime}" showTime="true"/>
-                <p:message for="estimatedDateTimeClndId"/>
-                
-                <p:outputLabel value="ActualDateTime" for="actualDateTimeClndId"/>
-                <p:datePicker id="actualDateTimeClndId" value="#{flightViewController.flight.actualDateTime}" showTime="true"/>
-				<p:message for="actualDateTimeClndId"/>
-
-                <p:outputLabel for="saveBtnId"/>
-                <p:commandButton id="saveBtnId" value="Save" action="#{flightViewController.save()}" 
-                				 update="@form" process="@parent"/>
-				<p:message for="saveBtnId"/>
-					
-            </h:panelGrid>
         
-        </p:panel>
+        <h:panelGrid columns="3">
 
-		<style>
-			.ui-blockui-content {
-				background-color: white;
-			}
-		</style>
+	        <p:panel id="pnlNewFligt">
+	            
+	            <f:facet name="header">
+	                New Flight
+	                <p:commandButton action="#{flightViewController.refresh()}" icon="pi pi-refresh" 
+	                                 update="@form" process="@this"/>
+	            </f:facet>
+	            
+	            <h:panelGrid columns="3">
+	                
+	                <p:outputLabel value="Airline" for="airlineTextId"/>
+	                <p:inputText id="airlineTextId" value="#{flightViewController.flightModel.airline}" 
+	                	required="true" reqiredMessage="Airline is required field." />
+	                <p:message for="airlineTextId"/>
+	                
+	                <p:outputLabel value="FromAirport" for="fromAirportTextId"/>
+	                <p:inputText id="fromAirportTextId" value="#{flightViewController.flightModel.fromAirport}" 
+	                	required="true" reqiredMessage="FromAirport is required field." />
+	                <p:message for="fromAirportTextId"/>
+	                
+	                <p:outputLabel value="ToAirport" for="toAirportTextId"/>
+	                <p:inputText id="toAirportTextId" value="#{flightViewController.flightModel.toAirport}" 
+	                	required="true" reqiredMessage="ToAirport is required field." />
+	                <p:message for="toAirportTextId"/>
+	                
+	                <p:outputLabel value="ScheduledDateTime" for="scheduledDateTimeClndId"/>
+	                <p:datePicker id="scheduledDateTimeClndId" value="#{flightViewController.flightModel.scheduledDateTime}" showTime="true" 
+	                	required="true" reqiredMessage="ScheduledDateTime is required field."/>
+	                <p:message for="scheduledDateTimeClndId"/>
+	                
+	                <p:outputLabel value="EstimatedDateTime" for="estimatedDateTimeClndId"/>
+	                <p:datePicker id="estimatedDateTimeClndId" value="#{flightViewController.flightModel.estimatedDateTime}" showTime="true"/>
+	                <p:message for="estimatedDateTimeClndId"/>
+	                
+	                <p:outputLabel value="ActualDateTime" for="actualDateTimeClndId"/>
+	                <p:datePicker id="actualDateTimeClndId" value="#{flightViewController.flightModel.actualDateTime}" showTime="true"/>
+					<p:message for="actualDateTimeClndId"/>
+	
+	                <p:outputLabel for="saveBtnId"/>
+	                <p:commandButton id="saveBtnId" value="Save" action="#{flightViewController.save()}" 
+	                	update="@form" process="@parent"/>
+					<p:message for="saveBtnId"/>
+						
+	            </h:panelGrid>
+	        
+	        </p:panel>
+	        
+	        <p:spacer width="100px;"/>
+	        
+	        <p:panel id="pnlSearchFligt">
+	            
+	            <f:facet name="header">
+	                Search Flight
+	                <p:commandButton action="#{flightViewController.refreshSearch()}" icon="pi pi-refresh" 
+	                                 update="@form" process="@this"/>
+	            </f:facet>
+	
+				<h:panelGrid columns="2" style="height: 260px;">
+	                
+	                <p:outputLabel value="Search Flight Id" for="searchFlightTextId"/>
+	                <p:inputText id="searchFlightTextId" value="#{flightViewController.searchFlightItemId}" />
+	             	
+	                <p:outputLabel for="searchBtnId"/>
+	                <p:commandButton id="searchBtnId" value="Search" action="#{flightViewController.search()}" 
+	                	update="@form" process="@parent"/>
+	             
+	             </h:panelGrid>
+	
+			</p:panel>
 
-        <p:blockUI id="blockPanel" block="projectForm" trigger="saveBtnId" widgetVar="buiBasic">
-        	<h:panelGrid columns="2">
-		        <p:graphicImage value="#{FacesContext.getCurrentInstance().getExternalContext()}/resource/img/ajax-loader.gif"
-		                        style="margin-right: 12px; vertical-align: middle;"/>
-		        <h:outputText value="Please wait..." style="white-space: nowrap;"/>
-		    </h:panelGrid>
-        </p:blockUI>
+		</h:panelGrid>
 
         <br/>
 
-        <p:panel>
+        <p:panel id="pnlFlightList">
             
             <f:facet name="header">
                 Flights
@@ -128,13 +141,47 @@
                 </p:column>
 
                 <p:column headerText="Options" width="10%">
-                    <p:commandButton icon="pi pi-pencil" action="#{flightViewController.edit(flightItem)}"
-                                     update="@form" process="@this"/>
+                    <p:commandButton icon="pi pi-pencil" 
+                    	action="#{flightViewController.edit(flightItem)}"
+                    	update="@form" process="@this"/>
+                </p:column>
+                
+                <p:column headerText="Action" width="10%">
+                    <p:commandButton icon="pi pi-trash"
+                    	action="#{flightViewController.onClickDelete(flightItem)}"
+                        update="@form" process="@this"/>
                 </p:column>
 
             </p:dataTable>
         
         </p:panel>
+        
+        <p:dialog widgetVar="deleteConfirmDialog" resizable="false" 
+        	modal="true" showEffect="clip" hideEffect="clip">
+            <p:panelGrid columns="1">
+	            <h:outputText value="Silmek istediğinize emin misiniz?"/>
+	            <h:panelGroup>
+		            <p:commandButton value="Hayır" 
+		            	action="#{flightViewController.closeDeleteDialog()}" process="@this"/>
+		            <p:commandButton id="deleteDialogBtnId" value="Evet" 
+		            	action="#{flightViewController.delete()}" process="@this" update="@form"/>
+	            </h:panelGroup>
+            </p:panelGrid>	
+        </p:dialog>
+        
+        <style>
+			.ui-blockui-content {
+				background-color: white;
+			}
+		</style>
+
+        <p:blockUI id="blockPanel" block="projectForm" trigger="saveBtnId,deleteDialogBtnId" widgetVar="buiBasic">
+        	<h:panelGrid columns="2">
+		        <p:graphicImage value="#{FacesContext.getCurrentInstance().getExternalContext()}/resources/img/ajax-loader.gif"
+		                        style="margin-right: 12px; vertical-align: middle;"/>
+		        <h:outputText value="Please wait..." style="white-space: nowrap;"/>
+		    </h:panelGrid>
+        </p:blockUI>
     
     </h:form>
 

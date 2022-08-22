@@ -1,0 +1,62 @@
+{"properties": [
+  {
+    "name": "jsf.url-mappings",
+    "type": "java.lang.String",
+    "description": "A description for 'jsf.url-mappings'"
+  },
+  {
+    "name": "jsf.facesServletName",
+    "type": "java.lang.String",
+    "description": "A description for 'jsf.facesServletName'"
+  },
+  {
+    "name": "jsf.servletContext.force-load-configuration-param",
+    "type": "java.lang.String",
+    "description": "A description for 'jsf.servletContext.force-load-configuration-param'"
+  },
+  {
+    "name": "jsf.servletContext.forceLoadConfigurationValue",
+    "type": "java.lang.String",
+    "description": "A description for 'jsf.servletContext.forceLoadConfigurationValue'"
+  },
+  {
+    "name": "jsf.servletContext.primefaces.theme-param",
+    "type": "java.lang.String",
+    "description": "A description for 'jsf.servletContext.primefaces.theme-param'"
+  },
+  {
+    "name": "jsf.servletContext.primefaces.themeValue",
+    "type": "java.lang.String",
+    "description": "A description for 'jsf.servletContext.primefaces.themeValue'"
+  },
+  {
+    "name": "jsf.servletContext.primefaces.clientSideValidationParam",
+    "type": "java.lang.String",
+    "description": "A description for 'jsf.servletContext.primefaces.clientSideValidationParam'"
+  },
+  {
+    "name": "jsf.servletContext.primefaces.clientSideValidationValue",
+    "type": "java.lang.String",
+    "description": "A description for 'jsf.servletContext.primefaces.clientSideValidationValue'"
+  },
+  {
+    "name": "jsf.servletContext.primefaces.fontParam",
+    "type": "java.lang.String",
+    "description": "A description for 'jsf.servletContext.primefaces.fontParam'"
+  },
+  {
+    "name": "jsf.servletContext.primefaces.fontValue",
+    "type": "java.lang.String",
+    "description": "A description for 'jsf.servletContext.primefaces.fontValue'"
+  },
+  {
+    "name": "jsf.faceletsSkipCommentsValue",
+    "type": "java.lang.String",
+    "description": "A description for 'jsf.faceletsSkipCommentsValue'"
+  },
+  {
+    "name": "jsf.faceletsSkipCommentsParam",
+    "type": "java.lang.String",
+    "description": "A description for 'jsf.faceletsSkipCommentsParam'"
+  }
+]}

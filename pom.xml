@@ -15,9 +15,11 @@
 	<artifactId>springWithPrimefaces</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springWithPrimefaces</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Demo project for Spring Boot With Primefaces</description>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 	</properties>
 
@@ -45,7 +47,7 @@
 			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
 
-		<!-- Jsf Primefaces Dependencies -->
+		<!-- Jsf Dependencies -->
 		<dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-api</artifactId>
@@ -58,6 +60,7 @@
 			<version>2.2.20</version>
 		</dependency>
 
+		<!-- Primefaces Dependencies -->
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>

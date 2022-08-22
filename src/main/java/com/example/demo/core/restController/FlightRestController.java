@@ -2,22 +2,19 @@ package com.example.demo.core.restController;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.common.FlightNotFoundException;
-import com.example.demo.core.api.FlightDto;
-import com.example.demo.core.api.FlightFilterDto;
-import com.example.demo.core.api.FlightResponse;
+import com.example.demo.core.api.dto.FlightDto;
+import com.example.demo.core.api.request.FlightFilterRequest;
+import com.example.demo.core.api.request.FlightSaveRequest;
+import com.example.demo.core.api.response.FlightListResponse;
+import com.example.demo.core.api.response.FlightResponse;
 import com.example.demo.core.model.FlightModel;
 import com.example.demo.core.service.FlightService;
-import com.example.demo.domain.entity.Flight;
-import com.example.demo.domain.repository.FlightRepository;
 import com.example.demo.integratiom.MapperService;
 
 
@@ -25,59 +22,55 @@ import com.example.demo.integratiom.MapperService;
 @RequestMapping("/flightApi")
 public class FlightRestController {
 
-	private final FlightRepository flightRepository;
 	private final FlightService flightService;
 	private final MapperService mapperService;
 	
-	FlightRestController(FlightRepository repo, FlightService service, MapperService mapper) {
-		this.flightRepository = repo;
+	FlightRestController(FlightService service, MapperService mapper) {
 		this.flightService = service;
 		this.mapperService = mapper;
 	}
 
-
 	@GetMapping("/getAllFlightList")
-	List<Flight> getAllFlightList() {
-		return flightRepository.findAllByOrderByIdDesc();
-	}
+	FlightListResponse getAllFlightList() {
+		
+		FlightListResponse response = new FlightListResponse();
+		String result = "Get all flight successfully.";
+		
+		List<FlightModel> flightModelList = flightService.getAllFlightList();
+		
+		response.setFlightList(mapperService.mapList(flightModelList, FlightDto.class));
 
-	@GetMapping("/getFlightById/{searchId}")
-	Flight getFlightById(@PathVariable(value = "searchId") Long flightId) {
-		return flightRepository.findById(flightId).orElseThrow(() -> new FlightNotFoundException(flightId));
+		response.setResult(result);
+		
+		return response;
 	}
+	
+	@PostMapping("/saveFligh")
+	FlightResponse saveFlight(@RequestBody FlightSaveRequest request) {
+		
+		FlightResponse response = new FlightResponse();
+		String result = "Flight saved successfully.";
 
-	@PostMapping("/saveFlight")
-	Flight saveFlight(@RequestBody Flight newFlight) {
-		return flightRepository.save(newFlight);
-	}
-
-	@DeleteMapping("/deleteFlight/{id}")
-	void deleteFlight(@PathVariable(value = "id") Long flightId) {
-		flightRepository.deleteById(flightId);
+		FlightModel flightModel = flightService.saveFlight(request.getNewFlight());
+		
+		response.setFlight(mapperService.map(flightModel, FlightDto.class));
+		
+		response.setResult(result);
+		
+		return response;
 	}
 
 	@PostMapping("/findFlight")
-	public FlightResponse findFlight(@RequestBody FlightFilterDto filter) {
+	public FlightResponse findFlight(@RequestBody FlightFilterRequest request) {
 		
 		FlightResponse response = new FlightResponse();
 		String result = "Find flight successfully";
-		Flight flight = null;
-		
+
 		try {
+
+			FlightModel flightModel = flightService.findFlight(request.getFlightId());
 			
-			flight = flightRepository.findById(filter.getFlightId())
-					.orElseThrow(() -> new FlightNotFoundException(filter.getFlightId()));
-			
-			FlightDto dto = new FlightDto();
-			dto.setId(flight.getId());
-			dto.setFromAirport(flight.getFromAirport());
-			dto.setToAirport(flight.getToAirport());
-			dto.setAirline(flight.getAirline());
-			dto.setActualDateTime(flight.getActualDateTime());
-			dto.setEstimatedDateTime(flight.getEstimatedDateTime());
-			dto.setScheduledDateTime(flight.getScheduledDateTime());
-			
-			response.setFlightDto(dto);
+			response.setFlight(mapperService.map(flightModel, FlightDto.class));
 		
 		} catch (Exception e) {
 			result = e.getMessage();
@@ -87,19 +80,17 @@ public class FlightRestController {
 		
 		return response;
 	}
-
-	@PostMapping("/findFlight2")
-	public FlightResponse findFlight2(@RequestBody FlightFilterDto filter) {
+	
+	@PostMapping("/deleteFlight")
+	public FlightResponse deleteFlight(@RequestBody FlightFilterRequest request) {
 		
 		FlightResponse response = new FlightResponse();
-		String result = "Find flight successfully";
+		String result = request.getFlightId() + " ids flight deleted successfully.";
 
 		try {
 
-			FlightModel flightModel = flightService.findFlight(filter.getFlightId());
-			
-			response.setFlightDto(mapperService.map(flightModel, FlightDto.class));
-		
+			flightService.deleteFlight(request.getFlightId());
+
 		} catch (Exception e) {
 			result = e.getMessage();
 		}

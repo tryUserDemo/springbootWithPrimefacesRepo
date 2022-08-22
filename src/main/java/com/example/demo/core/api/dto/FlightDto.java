@@ -1,4 +1,4 @@
-package com.example.demo.core.api;
+package com.example.demo.core.api.dto;
 
 import java.io.Serializable;
 import java.util.Date;
