@@ -26,7 +26,6 @@ spring:
 jsf:
   urlMappings: "*.xhtml"
   facesServletName: Faces Servlet
-  webapp-resources-directory: /resources
   servletContext: 
     forceLoadConfigurationParam: com.sun.faces.forceLoadConfiguration
     forceLoadConfigurationValue: true

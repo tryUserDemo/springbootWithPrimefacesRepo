@@ -58,7 +58,6 @@ public class JsfPrimefacesConfig {
 				new FacesServlet(), new String[] {urlMappings});
 		registration.setName(facesServletName);
 		registration.setLoadOnStartup(1);
-
 		return registration;
 	}
 
@@ -66,11 +65,9 @@ public class JsfPrimefacesConfig {
 	public ServletContextInitializer servletContextInitializer() {
 		return servletContext -> {
 			servletContext.setInitParameter(forceLoadConfigurationParam, forceLoadConfigurationValue);
-			// Primefacesin ücretsiz temalarından bootstrap örneği yaptık
-			// değiştirebilirsiniz
+			// Primefacesin ücretsiz temalarından bootstrap örneği yaptık değiştirebilirsiniz
 			servletContext.setInitParameter(primefacesThemeParam, primefacesThemeValue); // bootstrap
-			// Primefaces client browser tarafında kontrol edilebilme örneğin textbox 10
-			// karakter olmalı vs..
+			// Primefaces client browser tarafında kontrol edilebilme örneğin textbox 10 karakter olmalı vs..
 			servletContext.setInitParameter(clientSideValidationParam, clientSideValidationValue);
 			// primefaces icon set için
 			servletContext.setInitParameter(fontParam, fontValue);
