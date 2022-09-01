@@ -158,7 +158,12 @@
         
         <p:dialog widgetVar="deleteConfirmDialog" resizable="false" 
         	modal="true" showEffect="clip" hideEffect="clip">
-            <p:panelGrid columns="1">
+            
+            <f:facet name="header">
+                Uyarı
+            </f:facet>
+            
+            <p:panelGrid columns="1" style="text-align: center;">
 	            <h:outputText value="Silmek istediğinize emin misiniz?"/>
 	            <h:panelGroup>
 		            <p:commandButton value="Hayır" 
@@ -167,6 +172,7 @@
 		            	action="#{flightViewController.delete()}" process="@this" update="@form"/>
 	            </h:panelGroup>
             </p:panelGrid>	
+
         </p:dialog>
         
         <style>

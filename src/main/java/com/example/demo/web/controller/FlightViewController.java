@@ -1,20 +1,18 @@
-package com.example.demo.web;
+package com.example.demo.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 
-import org.primefaces.PrimeFaces;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.common.AppUtils;
 import com.example.demo.core.model.FlightModel;
 import com.example.demo.core.service.FlightService;
+import com.example.demo.web.BaseView;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,14 +22,13 @@ import lombok.Setter;
 @ManagedBean
 @ViewScoped
 @Getter @Setter
-public class FlightViewController{
+public class FlightViewController extends BaseView{
 
 	private final FlightService flightService;
 	
 	FlightViewController(FlightService service) {
 		this.flightService = service;
 	}
-
 
 	private FlightModel flightModel;
 	
@@ -49,34 +46,21 @@ public class FlightViewController{
     	getAllFlightList();
     }
     
-    public void hataMesajiFirlat(String hataMesaji) {
-    	FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", hataMesaji);
-        FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-    }
-    
-    public void uyariMesajiFirlat(String hataMesaji) {
-    	FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", hataMesaji);
-        FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-    }
-    
     public void getAllFlightList() {
     	flightList = flightService.getAllFlightList();
     }
 
     public void save() {
-    	
     	try {
     		flightService.saveFlightByModel(flightModel);
-            refresh();
-        	getAllFlightList();
+    		bilgiMesajiFirlat("Kaydetme işlemi başarılı.");
+            init();
 		} catch (Exception e) {
 			hataMesajiFirlat("Kaydetme işleminde hata oluştu. Detay = " + e.getMessage());
-			return;
 		}
     }
 
     public void search() {
-    	
     	try {
     		if(AppUtils.nullOrBlank(searchFlightItemId)) {
     			uyariMesajiFirlat("Lütfen arama yapacağınız uçuş id bilgisini giriniz.");
@@ -87,15 +71,15 @@ public class FlightViewController{
     		}
     		FlightModel resultModel = flightService.findFlight(Long.parseLong(searchFlightItemId)); 
     		if(resultModel == null) {
-    			uyariMesajiFirlat("Girilen bilgilere ait uçuş bulunamadı");
+    			uyariMesajiFirlat("Girilen bilgilere ait uçuş bulunamadı.");
     			getAllFlightList();
     		} else {
+    			bilgiMesajiFirlat("Girilen bilgilere ait veri bulundu.");
 	    		flightList.clear();
 	            flightList.add(resultModel);
             }
 		} catch (Exception e) {
 			hataMesajiFirlat("Arama işleminde hata oluştu. Detay = " + e.getMessage());
-			return;
 		} finally {
 			searchFlightItemId = null;
 		}
@@ -111,25 +95,24 @@ public class FlightViewController{
     }
     
     public void delete() {
-
     	try {
     		flightService.deleteFlight(selectedFlightModel.getId());
+    		bilgiMesajiFirlat("Silme işlemi başarılı.");
         	getAllFlightList();
 		} catch (Exception e) {
 			hataMesajiFirlat("Silme işleminde hata oluştu. Detay = " + e.getMessage());
-			return;
 		}finally {
 			closeDeleteDialog();
 		}
     }
     
     public void showDeleteDialog() {
-    	PrimeFaces.current().executeScript("PF('deleteConfirmDialog').show();");
+    	showDialog("deleteConfirmDialog");
     }
     
     public void closeDeleteDialog() {
     	selectedFlightModel = null;
-    	PrimeFaces.current().executeScript("PF('deleteConfirmDialog').hide();");
+    	closeDialog("deleteConfirmDialog");
     }
     
     public void refresh() {

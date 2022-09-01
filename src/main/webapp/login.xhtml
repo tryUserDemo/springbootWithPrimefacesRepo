@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+
+<h:body>
+
+    <h:form id="projectForm">
+
+		<p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+        
+        
+        <h:panelGroup layout="block" style="text-align: -webkit-center; margin-top: 200px;">
+        
+	        <h:panelGrid>
+	
+		        <p:panel id="pnlLogin">
+		            
+		            <f:facet name="header">
+		                Login
+		            </f:facet>
+		            
+		           	<h:panelGrid columns="3">
+		                <p:outputLabel value="Login Id" for="loginTextId"/>
+		                <p:inputText id="loginTextId" value="#{loginViewController.loginModel.userName}" 
+		                	maxlength="20" placeholder="Enter Login Id" required="true" reqiredMessage="Login id is required field." />
+		                <p:message for="loginTextId"/>
+	                
+		                <p:outputLabel value="Password" for="loginUserPassword"/>
+		                <p:password id="loginUserPassword" value="#{loginViewController.loginModel.password}" 
+		                	maxlength="8" placeholder="Enter Password" required="true" reqiredMessage="Password is required field."/>
+		                <p:message for="loginUserPassword"/>
+			        </h:panelGrid>
+	
+					<br></br>	
+	
+			       	<h:panelGroup>
+				    	<p:commandButton id="signBtnId" value="SignIn" action="#{loginViewController.loginControl()}" 
+				                	update="@form" process="pnlLogin"/>
+				        <p:spacer width="3px"/>
+				       	<h:outputText value="or"/>
+				       	<p:spacer width="3px"/>
+				       	<p:commandButton id="signUpBtnId" value="SignUp" action="register.xhmtl?faces-redirect=true" 
+				                	update="@form" process="@this"/>
+				       	<p:spacer width="5px"/>
+				       	<p:commandLink id="forgetPasswordLnk" style="font-weight: bold; font-color: dark green; font-size: 14px;"   
+				       		action="#{loginViewController.showInfoDialog()}" value="Forget Password ?"
+				       		update="@form" process="@this"/>         	
+		        	</h:panelGroup>
+		        
+		        </p:panel>
+	
+			</h:panelGrid>
+			
+		</h:panelGroup>
+        
+        <p:dialog widgetVar="infoDialog" resizable="false" title="Bilgilendirme" 
+        	modal="true" showEffect="fade" hideEffect="fade">
+
+            <f:facet name="header">
+                Bilgilendirme
+            </f:facet>
+
+           	<p:panelGrid columns="1" style="text-align: center; border-size: 0px;">
+	            <h:outputText value="Parolamı Unuttum Sayfasına Yönlendirme Yapılacak :)" 
+	            	style="font-size: 14px; font-weight: bold;" />
+	            <p:commandButton value="Tamam" 
+	            	action="#{loginViewController.closeInfoDialog()}" process="@this"/>	
+            </p:panelGrid>
+
+        </p:dialog>
+        
+        <style>
+			.ui-blockui-content {
+				background-color: white;
+			}
+		</style>
+
+        <p:blockUI id="blockPanel" block="projectForm" trigger="signBtnId,signUpBtnId" widgetVar="buiBasic">
+        	<h:panelGrid columns="2">
+		        <p:graphicImage value="#{FacesContext.getCurrentInstance().getExternalContext()}/resources/img/ajax-loader.gif"
+		                        style="margin-right: 12px; vertical-align: middle;"/>
+		        <h:outputText value="Please wait..." style="white-space: nowrap;"/>
+		    </h:panelGrid>
+        </p:blockUI>
+    
+    </h:form>
+
+</h:body>
+
+</html>

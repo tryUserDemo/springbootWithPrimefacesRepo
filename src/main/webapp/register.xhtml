@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+
+<h:body>
+
+    <h:form id="projectForm">
+
+		<p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+        
+        <h:panelGrid>
+
+	        <p:panel id="pnlNewUser">
+	            
+	            <f:facet name="header">
+	                Registration
+	            </f:facet>
+	            
+	           	<h:panelGrid columns="2">
+	                <h:panelGrid columns="3">
+		                <p:outputLabel value="First Name" for="firstNameTextId"/>
+		                <p:inputText id="firstNameTextId" value="#{registerViewController.userModel.firstName}" 
+		                	required="true" reqiredMessage="First name is required field." />
+		                <p:message for="firstNameTextId"/>
+	                </h:panelGrid>
+                
+	                <h:panelGrid columns="3">
+		                <p:outputLabel value="Last Name" for="lastNameTextId"/>
+		                <p:inputText id="lastNameTextId" value="#{registerViewController.userModel.lastName}" 
+		                	required="true" reqiredMessage="Last name is required field." />
+		                <p:message for="lastNameTextId"/>
+		            </h:panelGrid>
+		        </h:panelGrid>
+		        
+		        <h:panelGrid columns="1">
+		        	<h:panelGrid columns="3">
+		                <p:outputLabel value="Login Id" for="loginUserNameTextId"/>
+		                <p:inputText id="loginUserNameTextId" value="#{registerViewController.userModel.loginUserName}" 
+		                	maxlength="20" required="true" reqiredMessage="Login user name is required field." />
+		                <p:message for="loginUserNameTextId"/>
+		            </h:panelGrid>
+		        </h:panelGrid>
+		        
+		        <h:panelGrid columns="2">
+	                <h:panelGrid columns="3">
+	                	<p:outputLabel value="Password" for="loginUserPassword1"/>
+		                <p:password id="loginUserPassword1" value="#{registerViewController.userModel.loginUserPassword}" 
+		                	match="loginUserPassword2" maxlength="8" required="true" reqiredMessage="Password is required field."
+		                	validatorMessage="Password must be 8 character.Must be contains.The password must contain an uppercase letter, a lowercase letter and number.">
+		                	<f:validateRegex pattern="^(?=.{8,8}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*"/>
+		                </p:password>
+		                <p:message for="loginUserPassword1"/>
+	            	</h:panelGrid>
+                
+	                <h:panelGrid columns="3">
+						<p:outputLabel value="Confirm Password" for="loginUserPassword2"/>
+		                <p:password id="loginUserPassword2" value="#{registerViewController.userModel.loginUserPassword}" 
+		                	maxlength="8" placeholder="Enter Confirm Password" 
+		                	required="true" reqiredMessage="Confirm password is required field."/>
+		                <p:message for="loginUserPassword2"/>
+	                </h:panelGrid>
+	            </h:panelGrid>
+	            
+	            <h:panelGroup>
+		            <h:panelGrid columns="3">
+		                <p:outputLabel value="Mobile No" for="mobilePhoneId"/>
+		                <p:inputMask id="mobilePhoneId" value="#{registerViewController.userModel.mobilePhone}" 
+		                	mask="(999) 999-99-99" validateMask="true" />
+		                <p:message for="mobilePhoneId"/>
+		                
+		                <p:outputLabel value="Date Of Birth" for="dateOfBirthClndId"/>
+		                <p:datePicker id="dateOfBirthClndId" value="#{registerViewController.userModel.dateOfBirth}"/>
+						<p:message for="dateOfBirthClndId"/>
+						
+						<p:outputLabel value="Gender" for="genderId"/>
+						<p:selectOneMenu id="genderId" value="#{registerViewController.userModel.gender}">
+		                    <f:selectItem itemLabel="Select" itemValue=""/>
+		                    <f:selectItem itemLabel="Male" itemValue="M"/>
+		                    <f:selectItem itemLabel="Female" itemValue="F"/>
+		                </p:selectOneMenu>
+						<p:message for="genderId"/>
+		            </h:panelGrid>
+		       </h:panelGroup>
+
+		       <h:panelGroup>
+			       <p:commandButton id="saveBtnId" value="Save" action="#{registerViewController.save()}" 
+			                	update="@form" process="pnlNewUser"/>
+			       <p:spacer width="3px"/>
+			       <h:outputText value="or"/>
+			       <p:spacer width="3px"/>
+			       <p:commandButton id="resetBtnId" value="Reset" action="#{registerViewController.refresh()}" 
+			                	update="@form" process="@this"/>
+	        	</h:panelGroup>
+	        </p:panel>
+
+		</h:panelGrid>
+
+        <br/>
+
+        <p:panel id="pnlUserList">
+            
+            <f:facet name="header">
+                Users
+            </f:facet>
+            
+            <p:dataTable var="userItem" value="#{registerViewController.userList}" 
+            	paginator="true" paginatorPosition="bottom" rows="5" 
+            	paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                currentPageReportTemplate="{startRecord}-{endRecord} arası görüntüleniyor. Toplam {totalRecords} kayıt var."
+                rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+
+                <p:column headerText="User Id" width="6%">
+                    <h:outputText value="#{userItem.userId}"/>
+                </p:column>
+
+                <p:column headerText="First Name">
+                    <h:outputText value="#{userItem.firstName}"/>
+                </p:column>
+
+                <p:column headerText="Last Name">
+                    <h:outputText value="#{userItem.lastName}"/>
+                </p:column>
+
+                <p:column headerText="User Name">
+                    <h:outputText value="#{userItem.loginUserName}"/>
+                </p:column>
+                
+                <p:column headerText="Password">
+                    <h:outputText value="#{userItem.loginUserPassword}"/>
+                </p:column>
+
+                <p:column headerText="Mobile Phone">
+                    <h:outputText value="#{userItem.mobilePhone}">
+                        <f:convertNumber pattern="(###)-###-##-##" />
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Date Of Birth">
+                    <h:outputText value="#{userItem.dateOfBirth}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Gender" width="6%">
+                    <p:selectOneMenu value="#{userItem.gender}" disabled="true">
+	                    <f:selectItem itemLabel="Male" itemValue="M"/>
+	                    <f:selectItem itemLabel="Female" itemValue="F"/>
+	                </p:selectOneMenu>
+                </p:column>
+
+                <p:column headerText="Options" width="4%" style="text-align: center">
+                    <p:commandButton icon="pi pi-pencil" 
+                    	action="#{registerViewController.edit(userItem)}"
+                    	update="@form" process="@this"/>
+                </p:column>
+                
+                <p:column headerText="Action" width="4%" style="text-align: center">
+                    <p:commandButton icon="pi pi-trash"
+                    	action="#{registerViewController.onClickDelete(userItem)}"
+                        update="@form" process="@this"/>
+                </p:column>
+
+            </p:dataTable>
+        
+        </p:panel>
+        
+        <p:dialog widgetVar="deleteConfirmDialog" resizable="false" 
+        	modal="true" showEffect="clip" hideEffect="clip">
+            
+            <f:facet name="header">
+                Uyarı
+            </f:facet>
+            
+            <p:panelGrid columns="1" style="text-align: center;">
+	            <h:outputText value="Silmek istediğinize emin misiniz?"/>
+	            <h:panelGroup>
+		            <p:commandButton value="Hayır" 
+		            	action="#{registerViewController.closeDeleteDialog()}" process="@this"/>
+		            <p:commandButton id="deleteDialogBtnId" value="Evet" 
+		            	action="#{registerViewController.delete()}" process="@this" update="@form"/>
+	            </h:panelGroup>
+            </p:panelGrid>	
+        </p:dialog>
+        
+        <style>
+			.ui-blockui-content {
+				background-color: white;
+			}
+		</style>
+
+        <p:blockUI id="blockPanel" block="projectForm" trigger="saveBtnId,deleteDialogBtnId" widgetVar="buiBasic">
+        	<h:panelGrid columns="2">
+		        <p:graphicImage value="#{FacesContext.getCurrentInstance().getExternalContext()}/resources/img/ajax-loader.gif"
+		                        style="margin-right: 12px; vertical-align: middle;"/>
+		        <h:outputText value="Please wait..." style="white-space: nowrap;"/>
+		    </h:panelGrid>
+        </p:blockUI>
+    
+    </h:form>
+
+</h:body>
+
+</html>

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.projectConfiguration;
 
 import javax.faces.webapp.FacesServlet;
 

@@ -4,24 +4,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class FlightNotFoundException extends RuntimeException{
+public class DataNotFoundException extends RuntimeException{
 
 	private static final long serialVersionUID = 1L;
 
-	public FlightNotFoundException() {
+	public DataNotFoundException() {
         super();
     }
-    public FlightNotFoundException(String message, Throwable cause) {
+    public DataNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
-    public FlightNotFoundException(String message) {
+    public DataNotFoundException(String message) {
         super(message);
     }
-    public FlightNotFoundException(Throwable cause) {
+    public DataNotFoundException(Throwable cause) {
         super(cause);
     }
 	
-	public FlightNotFoundException(Long id){
-		super("Could not find flight " + id);
+	public DataNotFoundException(Long id){
+		super("Could not find data for id = " + id);
 	}
 }

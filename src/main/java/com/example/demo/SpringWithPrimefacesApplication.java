@@ -8,6 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import com.example.demo.projectConfiguration.JsfPrimefacesConfig;
+
 @SpringBootApplication
 @Configuration
 @Import(JsfPrimefacesConfig.class)
